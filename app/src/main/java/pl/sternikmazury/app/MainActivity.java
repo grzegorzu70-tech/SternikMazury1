@@ -27,6 +27,7 @@ public class MainActivity extends Activity implements LocationListener {
     float tripMeters=0, anchorRadius=40;
     long tripStarted=0;
     String selectedBoat="Sukcesja — Maxus 26";
+    boolean atHome=true;
     final Handler timer=new Handler(Looper.getMainLooper());
     static final int REQ_LOCATION=10;
     final int NAVY=Color.rgb(6,59,76), SEA=Color.rgb(8,127,140), TURQ=Color.rgb(17,167,160);
@@ -52,11 +53,17 @@ public class MainActivity extends Activity implements LocationListener {
         LinearLayout root=column(); root.setPadding(dp(16),dp(18),dp(16),dp(28)); s.addView(root);
         root.addView(label(title,26,INK,true));
         TextView sub=label(subtitle,14,MUTED,false); sub.setPadding(0,dp(2),0,dp(14)); root.addView(sub);
+        if(!title.equals("Kokpit")){
+            Button back=outline("←  WRÓĆ DO MENU");
+            back.setOnClickListener(v->showHome());
+            root.addView(back);
+        }
         s.setTag(root); return s;
     }
     LinearLayout root(ScrollView s){ return (LinearLayout)s.getTag(); }
 
     void showHome(){
+        atHome=true;
         ScrollView s=page("Kokpit","Najważniejsze dane w jednym miejscu");
         LinearLayout r=root(s);
         LinearLayout gps=card(); gps.addView(label("GPS • NA ŻYWO",13,SEA,true));
@@ -87,6 +94,7 @@ public class MainActivity extends Activity implements LocationListener {
     }
 
     void showWeather(){
+        atHome=false;
         ScrollView s=page("Pogoda i wiatr","Offline: kalkulator Beauforta i decyzja sternika");
         LinearLayout r=root(s), c=card();
         c.addView(label("Prędkość wiatru",17,INK,true));
@@ -107,6 +115,7 @@ public class MainActivity extends Activity implements LocationListener {
     }
 
     void showTrip(){
+        atHome=false;
         ScrollView s=page("Dziennik rejsu",selectedBoat);
         LinearLayout r=root(s), c=card();
         tripLive=label("Rejs nieaktywny",24,INK,true); c.addView(tripLive);
@@ -122,6 +131,7 @@ public class MainActivity extends Activity implements LocationListener {
     }
 
     void showAnchor(){
+        atHome=false;
         ScrollView s=page("Alarm kotwiczny","Monitoring oddalenia od miejsca kotwiczenia");
         LinearLayout r=root(s), c=card();
         c.addView(label("Promień alarmu w metrach",17,INK,true));
@@ -138,6 +148,7 @@ public class MainActivity extends Activity implements LocationListener {
     }
 
     void showSafety(){
+        atHome=false;
         ScrollView s=page("Bezpieczeństwo i SOS","Pozycja, numer ratunkowy i procedury");
         LinearLayout r=root(s), sos=card();
         TextView coords=label(currentCoords(),20,INK,true); sos.addView(coords);
@@ -149,6 +160,7 @@ public class MainActivity extends Activity implements LocationListener {
     }
 
     void showTools(){
+        atHome=false;
         ScrollView s=page("Więcej narzędzi","Checklisty, kalkulator i instrukcje");
         LinearLayout r=root(s);
         LinearLayout checks=card(); checks.addView(label("CHECKLISTA PRZED WYPŁYNIĘCIEM",15,INK,true));
@@ -193,5 +205,6 @@ public class MainActivity extends Activity implements LocationListener {
     void toast(String s){Toast.makeText(this,s,Toast.LENGTH_SHORT).show();}
     void styleNav(int id){Button b=findViewById(id);b.setTextColor(Color.WHITE);b.setBackgroundColor(Color.TRANSPARENT);b.setPadding(0,0,0,0);}
     @Override public void onRequestPermissionsResult(int r,String[] p,int[] g){super.onRequestPermissionsResult(r,p,g);if(r==REQ_LOCATION&&g.length>0&&g[0]==PackageManager.PERMISSION_GRANTED)startGps();else headerStatus.setText("GPS: brak pozwolenia");}
+    @Override public void onBackPressed(){if(!atHome)showHome();else super.onBackPressed();}
     @Override public void onProviderEnabled(String p){startGps();}@Override public void onProviderDisabled(String p){headerStatus.setText("GPS wyłączony");}@Override public void onStatusChanged(String p,int s,Bundle b){}
 }
