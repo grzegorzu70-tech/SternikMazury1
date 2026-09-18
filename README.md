@@ -1,14 +1,17 @@
-# Sternik Mazury
+# Sternik Mazury 2.0
 
 Aplikacja Android dla żeglarzy na Mazurach.
 
 ## Funkcje
 
-- pozycja GPS, prędkość w węzłach i kurs,
-- dziennik rejsu: czas i dystans,
-- alarm kotwiczny o promieniu 40 m,
-- przycisk alarmowy otwierający numer 984,
-- checklista przed wypłynięciem.
+- nowy kokpit GPS z pozycją, prędkością i kursem,
+- profile jachtów Sukcesja i Fanaberia,
+- dziennik rejsu: czas, dystans i ostatni zapis,
+- regulowany alarm kotwiczny z wibracją,
+- kalkulator Beauforta i ocena warunków,
+- SOS 984 z kopiowaniem pozycji,
+- checklista, kalkulator ETA i instrukcje manewrów,
+- działanie podstawowych narzędzi bez internetu.
 
 ## Pobieranie APK
 
