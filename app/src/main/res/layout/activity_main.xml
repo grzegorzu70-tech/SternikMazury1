@@ -1,19 +1,29 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/foam">
-<LinearLayout android:orientation="vertical" android:padding="18dp" android:layout_width="match_parent" android:layout_height="wrap_content">
-<TextView android:text="⛵ STERNIK MAZURY" android:textStyle="bold" android:textSize="28sp" android:textColor="@color/navy" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<TextView android:id="@+id/status" android:text="GPS: oczekiwanie na uprawnienie" android:textSize="16sp" android:paddingTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<TextView android:id="@+id/position" android:text="Pozycja: —" android:textSize="20sp" android:paddingTop="16dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<TextView android:id="@+id/speed" android:text="Prędkość: — kn" android:textSize="20sp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<TextView android:id="@+id/course" android:text="Kurs: —°" android:textSize="20sp" android:paddingBottom="12dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<Button android:id="@+id/startTrip" android:text="START REJSU" android:layout_width="match_parent" android:layout_height="56dp"/>
-<Button android:id="@+id/anchor" android:text="USTAW ALARM KOTWICZNY 40 m" android:layout_width="match_parent" android:layout_height="56dp"/>
-<TextView android:id="@+id/trip" android:text="Dziennik: rejs nieaktywny" android:textSize="17sp" android:padding="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<Button android:id="@+id/sos" android:text="SOS — ZADZWOŃ 984" android:textSize="20sp" android:layout_marginTop="16dp" android:layout_width="match_parent" android:layout_height="64dp"/>
-<TextView android:text="Checklisty" android:textStyle="bold" android:textSize="22sp" android:textColor="@color/navy" android:paddingTop="20dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<CheckBox android:text="Kamizelki i środki ratunkowe" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<CheckBox android:text="Silnik i paliwo / stan akumulatora" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<CheckBox android:text="Olinowanie, fały i refowanie" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<CheckBox android:text="Toaleta, zbiornik i zawory" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<CheckBox android:text="Pogoda i ostrzeżenia" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-<TextView android:text="Uwaga: aplikacja wspomaga sternika i nie zastępuje oceny warunków ani oficjalnych komunikatów służb." android:textSize="13sp" android:paddingTop="18dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-</LinearLayout></ScrollView>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:paddingStart="20dp" android:paddingTop="16dp"
+        android:paddingEnd="20dp" android:paddingBottom="14dp" android:background="@color/navy">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="⛵  STERNIK MAZURY" android:textColor="@color/white"
+            android:textSize="25sp" android:textStyle="bold" />
+        <TextView android:id="@+id/headerStatus" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="4dp"
+            android:text="Asystent żeglarza • GPS: uruchamianie"
+            android:textColor="@color/mint" android:textSize="14sp" />
+    </LinearLayout>
+    <FrameLayout android:id="@+id/content" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="68dp"
+        android:orientation="horizontal" android:gravity="center"
+        android:paddingStart="6dp" android:paddingEnd="6dp" android:background="@color/navy">
+        <Button android:id="@+id/navHome" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="⌂\nKOKPIT" android:textSize="11sp" />
+        <Button android:id="@+id/navWeather" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="☁\nPOGODA" android:textSize="11sp" />
+        <Button android:id="@+id/navTrip" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="⚓\nREJS" android:textSize="11sp" />
+        <Button android:id="@+id/navSafety" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="✚\nBEZPIECZ." android:textSize="11sp" />
+        <Button android:id="@+id/navTools" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="☰\nWIĘCEJ" android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>
