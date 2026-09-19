@@ -3,7 +3,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <application android:theme="@style/Theme.SternikMazury" android:label="Sternik Mazury" android:allowBackup="true">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application android:theme="@style/Theme.SternikMazury" android:label="Sternik Mazury" android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
         <activity android:name=".MainActivity" android:screenOrientation="portrait" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

@@ -1,17 +1,17 @@
-# Sternik Mazury 2.0
+# Sternik Mazury 3.0
 
 Aplikacja Android dla żeglarzy na Mazurach.
 
 ## Funkcje
 
-- nowy kokpit GPS z pozycją, prędkością i kursem,
-- profile jachtów Sukcesja i Fanaberia,
-- dziennik rejsu: czas, dystans i ostatni zapis,
-- regulowany alarm kotwiczny z wibracją,
-- kalkulator Beauforta i ocena warunków,
-- SOS 984 z kopiowaniem pozycji,
-- checklista, kalkulator ETA i instrukcje manewrów,
-- działanie podstawowych narzędzi bez internetu.
+- pozycja GPS, prędkość w węzłach i kurs,
+- pogoda online dla bieżącej pozycji: wiatr, porywy, temperatura, opady i ciśnienie,
+- mapa OpenStreetMap z pozycją jachtu i śladem aktywnego rejsu,
+- odliczanie do zachodu słońca obliczanego dla aktualnej pozycji,
+- dziennik rejsów jachtów Sukcesja i Fanaberia, zapisywany w telefonie,
+- alarm kotwiczny z regulowanym promieniem,
+- przycisk alarmowy otwierający numer 984 oraz checklista,
+- okrągły logotyp Maxus 26 Mazury Czarter jako ikona aplikacji.
 
 ## Pobieranie APK
 

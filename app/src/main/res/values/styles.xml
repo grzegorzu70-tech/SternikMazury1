@@ -1,7 +1,6 @@
 <resources>
 <style name="Theme.SternikMazury" parent="android:style/Theme.Material.Light.NoActionBar">
-    <item name="android:fontFamily">sans</item><item name="android:windowLightStatusBar">false</item>
-    <item name="android:colorAccent">@color/turquoise</item>
+    <item name="android:fontFamily">sans</item><item name="android:colorAccent">@color/sea</item>
     <item name="android:navigationBarColor">@color/navy</item><item name="android:statusBarColor">@color/navy</item>
 </style>
 </resources>

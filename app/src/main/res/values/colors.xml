@@ -1,8 +1,1 @@
-<resources>
-    <color name="navy">#063B4C</color><color name="sea">#087F8C</color>
-    <color name="turquoise">#11A7A0</color><color name="mint">#A7F3D0</color>
-    <color name="background">#EFF8F9</color><color name="card">#FFFFFF</color>
-    <color name="ink">#12343B</color><color name="muted">#607D82</color>
-    <color name="warning">#F59E0B</color><color name="danger">#C62828</color>
-    <color name="white">#FFFFFF</color>
-</resources>
+<resources><color name="navy">#073B4C</color><color name="sea">#0B7285</color><color name="foam">#F4FBFC</color><color name="red">#B42318</color></resources>
