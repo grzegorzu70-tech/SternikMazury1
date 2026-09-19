@@ -3,6 +3,8 @@ package pl.sternikmazury.app;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.Intent;
+import android.net.Uri;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,12 +30,30 @@ public class MainActivity extends Activity implements LocationListener {
         settings.setDatabaseEnabled(true);
         settings.setAllowFileAccess(true);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        web.setWebViewClient(new WebViewClient());
+        web.setWebViewClient(new WebViewClient() {
+            @Override public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return openExternalUrl(url);
+            }
+
+            @Override public boolean shouldOverrideUrlLoading(WebView view, android.webkit.WebResourceRequest request) {
+                return openExternalUrl(request.getUrl().toString());
+            }
+        });
         web.setWebChromeClient(new WebChromeClient());
         web.addJavascriptInterface(new Bridge(), "Android");
         web.loadUrl("file:///android_asset/index.html");
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
         requestLocation();
+    }
+
+    private boolean openExternalUrl(String url) {
+        if (url != null && url.startsWith("tel:")) {
+            try {
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(url)));
+            } catch (Exception ignored) { }
+            return true;
+        }
+        return false;
     }
 
     private void requestLocation() {
