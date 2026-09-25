@@ -26,13 +26,12 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Zbuduj APK
-        run: gradle assembleDebug
+      - name: Zbuduj APK release
+        run: gradle assembleRelease
 
-      - name: Zachowaj APK
+      - name: Zachowaj APK release
         uses: actions/upload-artifact@v4
         with:
-          name: Sternik-Mazury-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: Sternik-Mazury-Release
+          path: app/build/outputs/apk/release/app-release-unsigned.apk
           if-no-files-found: error
-
