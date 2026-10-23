@@ -6,6 +6,7 @@ import android.content.*;
 import android.content.pm.PackageManager;
 import android.location.*;
 import android.media.*;
+import android.net.Uri;
 import android.os.*;
 
 public class AnchorService extends Service implements LocationListener {
