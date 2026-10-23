@@ -1,6 +1,7 @@
 package pl.sternikmazury.app;
 
 import android.Manifest;
+import android.content.Context;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.content.Intent;
@@ -18,6 +19,8 @@ import android.webkit.WebViewClient;
 public class MainActivity extends Activity implements LocationListener {
     private static final int REQ_LOCATION = 10;
     private WebView web;
+    private android.content.BroadcastReceiver anchorReceiver;
+    private boolean anchorActive=false;
     private LocationManager locationManager;
 
     @Override public void onCreate(Bundle state) {
@@ -44,6 +47,22 @@ public class MainActivity extends Activity implements LocationListener {
         web.loadUrl("file:///android_asset/index.html");
         locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
         requestLocation();
+        anchorReceiver=new android.content.BroadcastReceiver(){
+            @Override public void onReceive(android.content.Context c,Intent i){
+                if("pl.sternikmazury.ANCHOR_ALERT".equals(i.getAction())){
+                    String msg=i.getStringExtra("message");
+                    web.post(()->web.evaluateJavascript("window.nativeAnchorAlert("+org.json.JSONObject.quote(msg)+")",null));
+                }else{
+                    double d=i.getDoubleExtra("distance",0);
+                    web.post(()->web.evaluateJavascript("window.nativeAnchorDistance("+d+")",null));
+                }
+            }
+        };
+        android.content.IntentFilter filter=new android.content.IntentFilter();
+        filter.addAction("pl.sternikmazury.ANCHOR_ALERT");
+        filter.addAction("pl.sternikmazury.ANCHOR_UPDATE");
+        if(android.os.Build.VERSION.SDK_INT>=33)registerReceiver(anchorReceiver,filter,Context.RECEIVER_NOT_EXPORTED);
+        else registerReceiver(anchorReceiver,filter);
     }
 
     private boolean openExternalUrl(String url) {
@@ -96,7 +115,26 @@ public class MainActivity extends Activity implements LocationListener {
         web.evaluateJavascript("window.appBack&&window.appBack()", null);
     }
 
+    @Override public void onDestroy(){
+        if(anchorReceiver!=null)unregisterReceiver(anchorReceiver);
+        super.onDestroy();
+    }
     public class Bridge {
+        @JavascriptInterface public void startAnchor(double lat,double lon,double radius){
+            if(checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED)return;
+            Intent i=new Intent(MainActivity.this,AnchorService.class);
+            i.setAction("START");i.putExtra("lat",lat);i.putExtra("lon",lon);i.putExtra("radius",radius);
+            runOnUiThread(()->startForegroundService(i));
+            anchorActive=true;
+        }
+        @JavascriptInterface public void stopAnchor(){
+            runOnUiThread(()->stopService(new Intent(MainActivity.this,AnchorService.class)));
+            anchorActive=false;
+        }
+        @JavascriptInterface public void acknowledgeAnchor(){
+            Intent i=new Intent(MainActivity.this,AnchorService.class);i.setAction("ACK");
+            runOnUiThread(()->startService(i));
+        }
         @JavascriptInterface public void vibrate(long milliseconds) {
             android.os.Vibrator v = (android.os.Vibrator)getSystemService(VIBRATOR_SERVICE);
             if (android.os.Build.VERSION.SDK_INT >= 26) v.vibrate(android.os.VibrationEffect.createOneShot(milliseconds, android.os.VibrationEffect.DEFAULT_AMPLITUDE));
