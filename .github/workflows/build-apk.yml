@@ -1,10 +1,10 @@
-name: Zbuduj APK
+name: Zbuduj i opublikuj APK
 on:
   push:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,3 +22,16 @@ jobs:
         with:
           name: Sternik-Mazury-APK
           path: app/build/outputs/apk/debug/*.apk
+      - name: Publikuj APK w GitHub Releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n 1)"
+          test -n "$APK"
+          cp "$APK" Sternik-Mazury.apk
+          if gh release view latest-apk >/dev/null 2>&1; then
+            gh release upload latest-apk Sternik-Mazury.apk --clobber
+          else
+            gh release create latest-apk Sternik-Mazury.apk --title "Sternik Mazury - Android APK" --notes "Wersja instalacyjna Android. Plik APK do bezposredniego pobrania." --latest --target "$GITHUB_SHA"
+          fi
